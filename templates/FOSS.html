@@ -15,13 +15,17 @@
     </div>
 
     <script>
-        function checkSpam() {
+        async function checkSpam() {
             const text = document.getElementById("textInput").value;
-            // Dummy spam detection logic (to be replaced with backend API call)
-            const spamWords = ["win", "free", "offer", "click here"];
-            const isSpam = spamWords.some(word => text.toLowerCase().includes(word));
-
-            document.getElementById("result").innerText = isSpam ? "🚨 Spam detected!" : "✅ Not spam.";
+            const response = await fetch("/check_spam", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ text: text })
+            });
+            const result = await response.json();
+            document.getElementById("result").innerText = result.is_spam ? "🚨 Spam detected!" : "✅ Not spam.";
         }
     </script>
 </body>
