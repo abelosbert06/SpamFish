@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spam Detector</title>
+    <link rel="stylesheet" href="static/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Spam Detector</h1>
+        <textarea id="textInput" placeholder="Enter text to check..."></textarea>
+        <button onclick="checkSpam()">Check</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function checkSpam() {
+            const text = document.getElementById("textInput").value;
+            // Dummy spam detection logic (to be replaced with backend API call)
+            const spamWords = ["win", "free", "offer", "click here"];
+            const isSpam = spamWords.some(word => text.toLowerCase().includes(word));
+
+            document.getElementById("result").innerText = isSpam ? "🚨 Spam detected!" : "✅ Not spam.";
+        }
+    </script>
+</body>
+</html>
