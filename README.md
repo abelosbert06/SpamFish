@@ -40,7 +40,7 @@ ScamFish is a Chrome extension that detects potential spam emails in Gmail using
 4. **Run the FastAPI server**:
 
     ```sh
-    uvicorn fastapi-server.server:app --reload
+    uvicorn server:app --reload
     ```
 
 5. **Load the Chrome extension**:
