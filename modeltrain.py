@@ -6,7 +6,7 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
 
 
-df = pd.read_csv(r"C:\Users\Akshay\OneDrive\Documents\scam-detector\spam-email-detector\dataset\SA_SubTxt_fn.csv")
+df = pd.read_csv(r"dataset\SA_SubTxt_fn.csv")
 df = df.drop(['filename'], axis=1)
 
 # Preprocessing the text

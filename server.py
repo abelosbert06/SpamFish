@@ -3,25 +3,32 @@ from fastapi.responses import HTMLResponse, JSONResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
+from bs4 import BeautifulSoup
 import modeltrain
 
 app = FastAPI()
+
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["chrome-extension://eioegojcampjjaephchglaldgeomghec"],  # Update with your extension ID
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 app.mount("/static", StaticFiles(directory="static"), name="static")
 templates = Jinja2Templates(directory="templates")
 
 class TextInput(BaseModel):
     text: str
 
-@app.get("/", response_class=HTMLResponse)
-async def root(request: Request):
-    return templates.TemplateResponse("FOSS.html", {"request": request})
 
 @app.post("/check_spam", response_class=JSONResponse)
 async def check_spam(input: TextInput):
-    predictionResult = modeltrain.PredictScamEmail(input.text)
+    soup = BeautifulSoup(input.text, "html.parser")
+    clean_text = soup.get_text(separator=" ")
+    predictionResult = modeltrain.PredictScamEmail(clean_text)
     print(predictionResult)
     return {"is_spam": predictionResult}
-
-
-
-

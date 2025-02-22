@@ -1,0 +1,20 @@
+{
+    "manifest_version": 2,
+    "name": "ScamFish",
+    "version": "1.0",
+    "description": "Detect potential scam emails in Gmail.",
+    "permissions": [
+      "activeTab",
+      "https://mail.google.com/*"
+    ],
+    "content_scripts": [
+      {
+        "matches": ["https://mail.google.com/*"],
+        "js": ["content.js"]
+      }
+    ],
+    "browser_action": {
+      "default_popup": "popup.html",
+      "default_icon": "icons/icon.png"
+    }
+}
