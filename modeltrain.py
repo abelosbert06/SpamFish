@@ -21,16 +21,15 @@ df['data'] = df['data'].apply(preprocess_text)
 # Split the data into training and testing sets
 X = df['data']
 y = df['label']
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42, stratify=y)
 
 # Convert text data into numerical features using TfidfVectorizer
 vectorizer = TfidfVectorizer()
-X_train_vec = vectorizer.fit_transform(X_train)
-X_test_vec = vectorizer.transform(X_test)
+X_vec = vectorizer.fit_transform(X)
+
 
 # Train a Logistic Regression model
 lr = LogisticRegression()
-lr.fit(X_train_vec, y_train)
+lr.fit(X_vec, y)
 
 def PredictScamEmail(email):
     email_vec = vectorizer.transform([email])
